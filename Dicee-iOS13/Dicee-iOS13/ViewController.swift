@@ -62,6 +62,21 @@ class ViewController: UIViewController {
         return resultLabel
     }()
     
+//    private lazy var stackView: UIStackView = {
+//        let stackView   = UIStackView()
+//        stackView.axis  = NSLayoutConstraint.Axis.vertical
+//        stackView.distribution  = UIStackView.Distribution.equalSpacing
+//        stackView.alignment = UIStackView.Alignment.center
+//        stackView.spacing = 0.0
+//        stackView.addArrangedSubview(diceLogo)
+//        stackView.addArrangedSubview(rollTheDiceButton)
+//        stackView.addArrangedSubview(leftDiceOne)
+//        stackView.addArrangedSubview(rightDiceOne)
+//        stackView.addArrangedSubview(resultLabel)
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        return stackView
+//    }()
+    
     override func viewDidLoad() {
         setupView()
         setupConstraints()
@@ -78,38 +93,44 @@ class ViewController: UIViewController {
         
         view.addSubview(resultLabel)
         
+//        view.addSubview(stackView)
     }
     
     private func setupConstraints() {
-        background.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        background.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        background.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        background.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        diceLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        diceLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 55).isActive = true
-        diceLogo.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        diceLogo.heightAnchor.constraint(equalToConstant: 160).isActive = true
-        
-        leftDiceOne.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300).isActive = true
-        leftDiceOne.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        leftDiceOne.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        leftDiceOne.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        rightDiceOne.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300).isActive = true
-        rightDiceOne.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
-        rightDiceOne.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        rightDiceOne.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        rollTheDiceButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        rollTheDiceButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -90).isActive = true
-        rollTheDiceButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        rollTheDiceButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        
-        resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        resultLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180).isActive = true
-        resultLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        resultLabel.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        NSLayoutConstraint.activate([
+            background.topAnchor.constraint(equalTo: view.topAnchor),
+            background.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            background.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            diceLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            diceLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 55),
+            diceLogo.widthAnchor.constraint(equalToConstant: 250),
+            diceLogo.heightAnchor.constraint(equalToConstant: 160),
+            
+            leftDiceOne.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300),
+            leftDiceOne.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            leftDiceOne.widthAnchor.constraint(equalToConstant: 150),
+            leftDiceOne.heightAnchor.constraint(equalToConstant: 150),
+            
+            rightDiceOne.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 300),
+            rightDiceOne.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            rightDiceOne.widthAnchor.constraint(equalToConstant: 150),
+            rightDiceOne.heightAnchor.constraint(equalToConstant: 150),
+            
+            rollTheDiceButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            rollTheDiceButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -90),
+            rollTheDiceButton.widthAnchor.constraint(equalToConstant: 300),
+            rollTheDiceButton.heightAnchor.constraint(equalToConstant: 80),
+            
+            resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            resultLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180),
+            resultLabel.widthAnchor.constraint(equalToConstant: 150),
+            resultLabel.heightAnchor.constraint(equalToConstant: 150),
+            
+//            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     @objc private func pushButton() {
