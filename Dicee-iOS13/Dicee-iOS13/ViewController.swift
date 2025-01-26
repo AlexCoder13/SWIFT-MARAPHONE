@@ -62,17 +62,46 @@ class ViewController: UIViewController {
         return resultLabel
     }()
     
+//    private lazy var stackViewLogo: UIStackView = {
+//        let stackViewLogo = UIStackView()
+//        stackViewLogo.axis  = NSLayoutConstraint.Axis.vertical
+//        stackViewLogo.distribution  = UIStackView.Distribution.fillEqually
+//        stackViewLogo.alignment = UIStackView.Alignment.center
+//        stackViewLogo.spacing = 0.0
+//        stackViewLogo.addArrangedSubview(diceLogo)
+//        stackViewLogo.translatesAutoresizingMaskIntoConstraints = false
+//        return stackViewLogo
+//    }()
+//    
+//    private lazy var stackViewDices: UIStackView = {
+//        let stackViewDices = UIStackView()
+//        stackViewDices.axis  = NSLayoutConstraint.Axis.vertical
+//        stackViewDices.distribution  = UIStackView.Distribution.fillEqually
+//        stackViewDices.alignment = UIStackView.Alignment.center
+//        stackViewDices.spacing = 0.0
+//        stackViewDices.addArrangedSubview(rollTheDiceButton)
+//        stackViewDices.translatesAutoresizingMaskIntoConstraints = false
+//        return stackViewDices
+//    }()
+//    
 //    private lazy var stackView: UIStackView = {
 //        let stackView   = UIStackView()
 //        stackView.axis  = NSLayoutConstraint.Axis.vertical
-//        stackView.distribution  = UIStackView.Distribution.equalSpacing
+//        stackView.distribution  = UIStackView.Distribution.fillEqually
 //        stackView.alignment = UIStackView.Alignment.center
 //        stackView.spacing = 0.0
 //        stackView.addArrangedSubview(diceLogo)
-//        stackView.addArrangedSubview(rollTheDiceButton)
-//        stackView.addArrangedSubview(leftDiceOne)
-//        stackView.addArrangedSubview(rightDiceOne)
-//        stackView.addArrangedSubview(resultLabel)
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        return stackView
+//    }()
+//    
+//    private lazy var stackView: UIStackView = {
+//        let stackView   = UIStackView()
+//        stackView.axis  = NSLayoutConstraint.Axis.vertical
+//        stackView.distribution  = UIStackView.Distribution.fillEqually
+//        stackView.alignment = UIStackView.Alignment.center
+//        stackView.spacing = 0.0
+//        stackView.addArrangedSubview(diceLogo)
 //        stackView.translatesAutoresizingMaskIntoConstraints = false
 //        return stackView
 //    }()
@@ -93,7 +122,8 @@ class ViewController: UIViewController {
         
         view.addSubview(resultLabel)
         
-//        view.addSubview(stackView)
+//        view.addSubview(stackViewLogo)
+//        view.addSubview(logoView)
     }
     
     private func setupConstraints() {
@@ -128,8 +158,11 @@ class ViewController: UIViewController {
             resultLabel.widthAnchor.constraint(equalToConstant: 150),
             resultLabel.heightAnchor.constraint(equalToConstant: 150),
             
-//            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+//            stackViewLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            stackViewLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+//            
+//            stackViewDices.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            stackViewDices.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 0)
         ])
     }
     
