@@ -7,8 +7,19 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
+    
+    var audioPlayer: AVAudioPlayer?
+    
+    private lazy var backgroundView: UIView = {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .placeholderText
+        backgroundView.layer.cornerRadius = 40
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        return backgroundView
+    }()
     
     private lazy var labelC: UILabel = {
         let labelC = UILabel()
@@ -54,7 +65,7 @@ class ViewController: UIViewController {
         buttonD.contentHorizontalAlignment = .center
         buttonD.contentVerticalAlignment = .center
         buttonD.layer.cornerRadius = 20
-        //        buttonD.addTarget(self, action: #selector(pushButtonD), for: .touchUpInside)
+        buttonD.addTarget(self, action: #selector(pushButtonD), for: .touchUpInside)
         buttonD.translatesAutoresizingMaskIntoConstraints = false
         buttonD.backgroundColor = .orange
         return buttonD
@@ -79,7 +90,7 @@ class ViewController: UIViewController {
         buttonE.contentHorizontalAlignment = .center
         buttonE.contentVerticalAlignment = .center
         buttonE.layer.cornerRadius = 20
-        //        buttonE.addTarget(self, action: #selector(pushButtonE), for: .touchUpInside)
+        buttonE.addTarget(self, action: #selector(pushButtonE), for: .touchUpInside)
         buttonE.translatesAutoresizingMaskIntoConstraints = false
         buttonE.backgroundColor = .systemYellow
         return buttonE
@@ -104,7 +115,7 @@ class ViewController: UIViewController {
         buttonF.contentHorizontalAlignment = .center
         buttonF.contentVerticalAlignment = .center
         buttonF.layer.cornerRadius = 20
-        //        buttonF.addTarget(self, action: #selector(pushButtonF), for: .touchUpInside)
+        buttonF.addTarget(self, action: #selector(pushButtonF), for: .touchUpInside)
         buttonF.translatesAutoresizingMaskIntoConstraints = false
         buttonF.backgroundColor = .systemGreen
         return buttonF
@@ -129,7 +140,7 @@ class ViewController: UIViewController {
         buttonG.contentHorizontalAlignment = .center
         buttonG.contentVerticalAlignment = .center
         buttonG.layer.cornerRadius = 20
-        //        buttonG.addTarget(self, action: #selector(pushButtonG), for: .touchUpInside)
+        buttonG.addTarget(self, action: #selector(pushButtonG), for: .touchUpInside)
         buttonG.translatesAutoresizingMaskIntoConstraints = false
         buttonG.backgroundColor = .systemCyan
         return buttonG
@@ -154,7 +165,7 @@ class ViewController: UIViewController {
         buttonA.contentHorizontalAlignment = .center
         buttonA.contentVerticalAlignment = .center
         buttonA.layer.cornerRadius = 20
-        //        buttonA.addTarget(self, action: #selector(pushButtonA), for: .touchUpInside)
+        buttonA.addTarget(self, action: #selector(pushButtonA), for: .touchUpInside)
         buttonA.translatesAutoresizingMaskIntoConstraints = false
         buttonA.backgroundColor = .systemBlue
         return buttonA
@@ -179,7 +190,7 @@ class ViewController: UIViewController {
         buttonB.contentHorizontalAlignment = .center
         buttonB.contentVerticalAlignment = .center
         buttonB.layer.cornerRadius = 20
-        //        buttonB.addTarget(self, action: #selector(pushButtonB), for: .touchUpInside)
+        buttonB.addTarget(self, action: #selector(pushButtonB), for: .touchUpInside)
         buttonB.translatesAutoresizingMaskIntoConstraints = false
         buttonB.backgroundColor = .systemPurple
         return buttonB
@@ -192,7 +203,10 @@ class ViewController: UIViewController {
     }
     
     private func setupView() {
+        
         view.backgroundColor = .placeholderText
+        
+        view.addSubview(backgroundView)
         
         view.addSubview(buttonC)
         view.addSubview(labelC)
@@ -214,10 +228,16 @@ class ViewController: UIViewController {
         
         view.addSubview(buttonB)
         view.addSubview(labelB)
+        
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -418),
+            
             buttonC.heightAnchor.constraint(equalToConstant: 80),
             buttonC.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             buttonC.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -299,14 +319,201 @@ class ViewController: UIViewController {
     
     
     @objc private func pushButtonC() {
-//        UIView.animate(withDuration: 0.3) {
-//            self.labelC.textColor = self.buttonC.backgroundColor
-        
-        UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseIn], animations: {
+            self.backgroundView.backgroundColor = self.buttonC.backgroundColor
             self.labelC.textColor = self.buttonC.backgroundColor
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseOut], animations: {
+            self.backgroundView.backgroundColor = .placeholderText
+        })
+        
+        playSoundC()
+        
+    }
+    
+    func playSoundC() {
+        if let path = Bundle.main.path(forResource: "C", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
             
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
         }
     }
+    
+    @objc private func pushButtonD() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options:[.curveEaseIn], animations: {
+            self.backgroundView.backgroundColor = self.buttonD.backgroundColor
+            self.labelD.textColor = self.buttonD.backgroundColor
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseOut], animations: {
+            self.backgroundView.backgroundColor = .placeholderText
+        })
+        
+        playSoundD()
+        
+    }
+    
+    func playSoundD() {
+        if let path = Bundle.main.path(forResource: "D", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
+        }
+    }
+    
+    @objc private func pushButtonE() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options:[.curveEaseIn], animations: {
+            self.backgroundView.backgroundColor = self.buttonE.backgroundColor
+            self.labelE.textColor = self.buttonE.backgroundColor
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseOut], animations: {
+            self.backgroundView.backgroundColor = .placeholderText
+        })
+        
+        playSoundE()
+        
+    }
+    
+    func playSoundE() {
+        if let path = Bundle.main.path(forResource: "E", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
+        }
+    }
+    
+    @objc private func pushButtonF() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options:[.curveEaseIn], animations: {
+            self.backgroundView.backgroundColor = self.buttonF.backgroundColor
+            self.labelF.textColor = self.buttonF.backgroundColor
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseOut], animations: {
+            self.backgroundView.backgroundColor = .placeholderText
+        })
+        
+        playSoundF()
+        
+    }
+    
+    func playSoundF() {
+        if let path = Bundle.main.path(forResource: "F", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
+        }
+    }
+    
+    @objc private func pushButtonG() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options:[.curveEaseIn], animations: {
+            self.backgroundView.backgroundColor = self.buttonG.backgroundColor
+            self.labelG.textColor = self.buttonG.backgroundColor
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseOut], animations: {
+            self.backgroundView.backgroundColor = .placeholderText
+        })
+        
+        playSoundG()
+        
+    }
+    
+    func playSoundG() {
+        if let path = Bundle.main.path(forResource: "G", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
+        }
+    }
+    
+    @objc private func pushButtonA() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options:[.curveEaseIn], animations: {
+            self.backgroundView.backgroundColor = self.buttonA.backgroundColor
+            self.labelA.textColor = self.buttonA.backgroundColor
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseOut], animations: {
+            self.backgroundView.backgroundColor = .placeholderText
+        })
+        
+        playSoundA()
+        
+    }
+    
+    func playSoundA() {
+        if let path = Bundle.main.path(forResource: "A", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
+        }
+    }
+    
+    @objc private func pushButtonB() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options:[.curveEaseIn], animations: {
+            self.backgroundView.backgroundColor = self.buttonB.backgroundColor
+            self.labelB.textColor = self.buttonB.backgroundColor
+        })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options:[.curveEaseOut], animations: {
+            self.backgroundView.backgroundColor = .placeholderText
+        })
+        
+        playSoundB()
+        
+    }
+    
+    func playSoundB() {
+        if let path = Bundle.main.path(forResource: "B", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
+        }
+    }
+    
 }
-                        
-                        
+
+
