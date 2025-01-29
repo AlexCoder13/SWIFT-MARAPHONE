@@ -1,10 +1,6 @@
 //
 //  ViewController.swift
 //  Xylophone
-//
-//  Created by Angela Yu on 28/06/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
-//
 
 import UIKit
 import AVFoundation
@@ -16,7 +12,7 @@ class ViewController: UIViewController {
     private lazy var backgroundView: UIView = {
         let backgroundView = UIView()
         backgroundView.backgroundColor = .placeholderText
-        backgroundView.layer.cornerRadius = 40
+        backgroundView.layer.cornerRadius = 15
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundView
     }()
@@ -41,6 +37,7 @@ class ViewController: UIViewController {
         buttonC.contentVerticalAlignment = .center
         buttonC.layer.cornerRadius = 20
         buttonC.addTarget(self, action: #selector(pushButtonC), for: .touchUpInside)
+//        buttonC.addAction(<#T##action: UIAction##UIAction#>, for: <#T##UIControl.Event#>)
         buttonC.translatesAutoresizingMaskIntoConstraints = false
         buttonC.backgroundColor = .systemRed
         return buttonC
@@ -236,7 +233,7 @@ class ViewController: UIViewController {
             backgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -418),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -800),
             
             buttonC.heightAnchor.constraint(equalToConstant: 80),
             buttonC.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -258,7 +255,7 @@ class ViewController: UIViewController {
             labelD.heightAnchor.constraint(equalToConstant: 80),
             labelD.widthAnchor.constraint(equalToConstant: 60),
             labelD.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 17),
-            labelD.leadingAnchor.constraint(equalTo: labelC.trailingAnchor, constant: 0),
+            labelD.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 75),
             
             buttonE.heightAnchor.constraint(equalToConstant: 80),
             buttonE.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
@@ -269,7 +266,7 @@ class ViewController: UIViewController {
             labelE.heightAnchor.constraint(equalToConstant: 80),
             labelE.widthAnchor.constraint(equalToConstant: 60),
             labelE.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 17),
-            labelE.leadingAnchor.constraint(equalTo: labelC.trailingAnchor, constant: 48),
+            labelE.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 122),
             
             buttonF.heightAnchor.constraint(equalToConstant: 80),
             buttonF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
@@ -291,7 +288,7 @@ class ViewController: UIViewController {
             labelG.heightAnchor.constraint(equalToConstant: 80),
             labelG.widthAnchor.constraint(equalToConstant: 60),
             labelG.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 17),
-            labelG.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 225),
+            labelG.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -120),
             
             buttonA.heightAnchor.constraint(equalToConstant: 80),
             buttonA.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 56),
@@ -302,7 +299,7 @@ class ViewController: UIViewController {
             labelA.heightAnchor.constraint(equalToConstant: 80),
             labelA.widthAnchor.constraint(equalToConstant: 60),
             labelA.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 17),
-            labelA.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 275),
+            labelA.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70),
             
             buttonB.heightAnchor.constraint(equalToConstant: 80),
             buttonB.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
@@ -327,23 +324,8 @@ class ViewController: UIViewController {
             self.backgroundView.backgroundColor = .placeholderText
         })
         
-        playSoundC()
+        playSound(sound: "C")
         
-    }
-    
-    func playSoundC() {
-        if let path = Bundle.main.path(forResource: "C", ofType: "wav") {
-            let url = URL(fileURLWithPath: path)
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
-            }
-        } else {
-            print("Файл не найден")
-        }
     }
     
     @objc private func pushButtonD() {
@@ -355,23 +337,8 @@ class ViewController: UIViewController {
             self.backgroundView.backgroundColor = .placeholderText
         })
         
-        playSoundD()
+        playSound(sound: "D")
         
-    }
-    
-    func playSoundD() {
-        if let path = Bundle.main.path(forResource: "D", ofType: "wav") {
-            let url = URL(fileURLWithPath: path)
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
-            }
-        } else {
-            print("Файл не найден")
-        }
     }
     
     @objc private func pushButtonE() {
@@ -383,23 +350,8 @@ class ViewController: UIViewController {
             self.backgroundView.backgroundColor = .placeholderText
         })
         
-        playSoundE()
+        playSound(sound: "E")
         
-    }
-    
-    func playSoundE() {
-        if let path = Bundle.main.path(forResource: "E", ofType: "wav") {
-            let url = URL(fileURLWithPath: path)
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
-            }
-        } else {
-            print("Файл не найден")
-        }
     }
     
     @objc private func pushButtonF() {
@@ -411,23 +363,8 @@ class ViewController: UIViewController {
             self.backgroundView.backgroundColor = .placeholderText
         })
         
-        playSoundF()
+        playSound(sound: "F")
         
-    }
-    
-    func playSoundF() {
-        if let path = Bundle.main.path(forResource: "F", ofType: "wav") {
-            let url = URL(fileURLWithPath: path)
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
-            }
-        } else {
-            print("Файл не найден")
-        }
     }
     
     @objc private func pushButtonG() {
@@ -439,23 +376,8 @@ class ViewController: UIViewController {
             self.backgroundView.backgroundColor = .placeholderText
         })
         
-        playSoundG()
+        playSound(sound: "G")
         
-    }
-    
-    func playSoundG() {
-        if let path = Bundle.main.path(forResource: "G", ofType: "wav") {
-            let url = URL(fileURLWithPath: path)
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
-            }
-        } else {
-            print("Файл не найден")
-        }
     }
     
     @objc private func pushButtonA() {
@@ -467,23 +389,8 @@ class ViewController: UIViewController {
             self.backgroundView.backgroundColor = .placeholderText
         })
         
-        playSoundA()
+        playSound(sound: "A")
         
-    }
-    
-    func playSoundA() {
-        if let path = Bundle.main.path(forResource: "A", ofType: "wav") {
-            let url = URL(fileURLWithPath: path)
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
-            }
-        } else {
-            print("Файл не найден")
-        }
     }
     
     @objc private func pushButtonB() {
@@ -495,12 +402,12 @@ class ViewController: UIViewController {
             self.backgroundView.backgroundColor = .placeholderText
         })
         
-        playSoundB()
+        playSound(sound: "B")
         
     }
     
-    func playSoundB() {
-        if let path = Bundle.main.path(forResource: "B", ofType: "wav") {
+    func playSound(sound: String) {
+        if let path = Bundle.main.path(forResource: sound, ofType: "wav") {
             let url = URL(fileURLWithPath: path)
             
             do {
@@ -513,7 +420,6 @@ class ViewController: UIViewController {
             print("Файл не найден")
         }
     }
-    
 }
 
 
