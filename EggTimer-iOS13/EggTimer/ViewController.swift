@@ -7,9 +7,16 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    private var secondsForSoftCook = 5
+    private var secondsForMediumCook = 10
+    private var secondsForHardCook = 15
+    private var currentSeconds = 0
+    
+    private var timer = Timer()
+    
     private lazy var questionLabel: UILabel = {
         let questionLabel = UILabel()
-        questionLabel.text = "Степени готовности яйца:"
+        questionLabel.text = "Готовим яички -_-"
         questionLabel.textColor = .systemYellow
         questionLabel.font = .boldSystemFont(ofSize: 35)
         questionLabel.textAlignment = .center
@@ -75,6 +82,17 @@ class ViewController: UIViewController {
         return hardButton
     }()
     
+    private lazy var progressBar: UIProgressView = {
+        let progressBar = UIProgressView()
+        progressBar.progressViewStyle = .bar
+        progressBar.progressTintColor = .systemYellow
+        progressBar.trackTintColor = .systemGray
+        progressBar.layer.cornerRadius = 7
+        progressBar.clipsToBounds = true
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        return progressBar
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -93,6 +111,8 @@ class ViewController: UIViewController {
         view.addSubview(softImageView)
         view.addSubview(mediumImageView)
         view.addSubview(hardImageView)
+        
+        view.addSubview(progressBar)
     }
     
     private func setupConstraints() {
@@ -130,19 +150,70 @@ class ViewController: UIViewController {
             hardButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             hardButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             hardButton.heightAnchor.constraint(equalToConstant: 160),
-            hardButton.widthAnchor.constraint(equalToConstant: 120)
+            hardButton.widthAnchor.constraint(equalToConstant: 120),
+            
+            progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            progressBar.centerYAnchor.constraint(equalTo: view.bottomAnchor, constant: -320),
+            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            progressBar.heightAnchor.constraint(equalToConstant: 7),
         ])
     }
     
     @objc private func pushSoftButton() {
-        print("Soft Button pushed")
+        timer.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSoftTimer), userInfo: nil, repeats: true)
+        progressBar.progress = 0
+        currentSeconds = 0
+        self.questionLabel.text = "Готовим яички -_-"
     }
     
     @objc private func pushMediumButton() {
-        print("Medium Button pushed")
+        timer.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateMediumTimer), userInfo: nil, repeats: true)
+        progressBar.progress = 0
+        currentSeconds = 0
+        self.questionLabel.text = "Готовим яички -_-"
     }
     
     @objc private func pushHardButton() {
-        print("Hard Button pushed")
+        timer.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateHardTimer), userInfo: nil, repeats: true)
+        progressBar.progress = 0
+        currentSeconds = 0
+        self.questionLabel.text = "Готовим яички -_-"
+    }
+    
+    @objc private func updateSoftTimer() {
+        if  self.currentSeconds < self.secondsForSoftCook {
+            self.currentSeconds += 1
+            let percantageProgress = Float(self.currentSeconds) / Float(self.secondsForSoftCook)
+            progressBar.progress = percantageProgress
+        } else {
+            timer.invalidate()
+            questionLabel.text = "Готово :D"
+        }
+    }
+    
+    @objc private func updateMediumTimer() {
+        if  self.currentSeconds < self.secondsForMediumCook {
+            self.currentSeconds += 1
+            let percantageProgress = Float(self.currentSeconds) / Float(self.secondsForMediumCook)
+            progressBar.progress = percantageProgress
+        } else {
+            timer.invalidate()
+            questionLabel.text = "Готово :D"
+        }
+    }
+    
+    @objc private func updateHardTimer() {
+        if  self.currentSeconds < self.secondsForHardCook {
+            self.currentSeconds += 1
+            let percantageProgress = Float(self.currentSeconds) / Float(self.secondsForHardCook)
+            progressBar.progress = percantageProgress
+        } else {
+            timer.invalidate()
+            questionLabel.text = "Готово :D"
+        }
     }
 }
