@@ -44,8 +44,9 @@ class ViewController: UIViewController {
         softButton.setTitle("soft", for: .normal)
         softButton.setTitleColor(.white, for: .normal)
         softButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
-        softButton.backgroundColor = .green
+        softButton.backgroundColor = .clear
         softButton.layer.cornerRadius = 60
+        softButton.addTarget(self, action: #selector(pushSoftButton), for: .touchUpInside)
         softButton.translatesAutoresizingMaskIntoConstraints = false
         return softButton
     }()
@@ -55,8 +56,9 @@ class ViewController: UIViewController {
         mediumButton.setTitle("medium", for: .normal)
         mediumButton.setTitleColor(.white, for: .normal)
         mediumButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
-        mediumButton.backgroundColor = .orange
+        mediumButton.backgroundColor = .clear
         mediumButton.layer.cornerRadius = 60
+        mediumButton.addTarget(self, action: #selector(pushMediumButton), for: .touchUpInside)
         mediumButton.translatesAutoresizingMaskIntoConstraints = false
         return mediumButton
     }()
@@ -66,8 +68,9 @@ class ViewController: UIViewController {
         hardButton.setTitle("hard", for: .normal)
         hardButton.setTitleColor(.white, for: .normal)
         hardButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
-        hardButton.backgroundColor = .red
+        hardButton.backgroundColor = .clear
         hardButton.layer.cornerRadius = 60
+        hardButton.addTarget(self, action: #selector(pushHardButton), for: .touchUpInside)
         hardButton.translatesAutoresizingMaskIntoConstraints = false
         return hardButton
     }()
@@ -131,4 +134,15 @@ class ViewController: UIViewController {
         ])
     }
     
+    @objc private func pushSoftButton() {
+        print("Soft Button pushed")
+    }
+    
+    @objc private func pushMediumButton() {
+        print("Medium Button pushed")
+    }
+    
+    @objc private func pushHardButton() {
+        print("Hard Button pushed")
+    }
 }
