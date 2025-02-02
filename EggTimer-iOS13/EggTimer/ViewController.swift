@@ -4,6 +4,7 @@
 
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -12,11 +13,13 @@ class ViewController: UIViewController {
     private var secondsForHardCook = 15
     private var currentSeconds = 0
     
+    var audioPlayer: AVAudioPlayer?
+    
     private var timer = Timer()
     
     private lazy var questionLabel: UILabel = {
         let questionLabel = UILabel()
-        questionLabel.text = "Готовим яички -_-"
+        questionLabel.text = "Как будем готовить?"
         questionLabel.textColor = .systemYellow
         questionLabel.font = .boldSystemFont(ofSize: 35)
         questionLabel.textAlignment = .center
@@ -90,6 +93,7 @@ class ViewController: UIViewController {
         progressBar.layer.cornerRadius = 7
         progressBar.clipsToBounds = true
         progressBar.translatesAutoresizingMaskIntoConstraints = false
+        progressBar.isHidden = true
         return progressBar
     }()
     
@@ -117,7 +121,7 @@ class ViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            questionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            questionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             questionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             questionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             questionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
@@ -161,59 +165,96 @@ class ViewController: UIViewController {
     }
     
     @objc private func pushSoftButton() {
+        self.progressBar.isHidden = false
         timer.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSoftTimer), userInfo: nil, repeats: true)
         progressBar.progress = 0
         currentSeconds = 0
-        self.questionLabel.text = "Готовим яички -_-"
+        self.questionLabel.text = "Как будем готовить?"
     }
     
     @objc private func pushMediumButton() {
+        progressBar.isHidden = false
         timer.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateMediumTimer), userInfo: nil, repeats: true)
         progressBar.progress = 0
         currentSeconds = 0
-        self.questionLabel.text = "Готовим яички -_-"
+        self.questionLabel.text = "Как будем готовить?"
     }
     
     @objc private func pushHardButton() {
+        progressBar.isHidden = false
         timer.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateHardTimer), userInfo: nil, repeats: true)
         progressBar.progress = 0
         currentSeconds = 0
-        self.questionLabel.text = "Готовим яички -_-"
+        self.questionLabel.text = "Как будем готовить?"
     }
     
     @objc private func updateSoftTimer() {
         if  self.currentSeconds < self.secondsForSoftCook {
+            questionLabel.textAlignment = .justified
+            self.questionLabel.text = "ВСМЯТКУ. Желток довольно жидкий, и схватившийся, но жидкий белок. Время варки: 2 минуты — желток и белок останутся жидкими, 3 минуты — получится жидкий желток, но почти твёрдый белок."
+            self.questionLabel.font = .boldSystemFont(ofSize: 18)
             self.currentSeconds += 1
             let percantageProgress = Float(self.currentSeconds) / Float(self.secondsForSoftCook)
             progressBar.progress = percantageProgress
         } else {
             timer.invalidate()
-            questionLabel.text = "Готово :D"
+            questionLabel.textAlignment = .center
+            self.questionLabel.font = .boldSystemFont(ofSize: 35)
+            questionLabel.text = "Ваше блюдо готово. Приятного аппетита!"
+            playSound("alarm_sound")
         }
     }
     
     @objc private func updateMediumTimer() {
         if  self.currentSeconds < self.secondsForMediumCook {
+            questionLabel.textAlignment = .justified
+            self.questionLabel.text = "В МЕШОЧЕК. Твёрдый белок и жидкий в середине желток. Если яйца кладутся в холодную воду и ждут закипания, варятся около 4 минут. Если опускаются в кипящую воду — 5–6 минут."
+            self.questionLabel.font = .boldSystemFont(ofSize: 18)
             self.currentSeconds += 1
             let percantageProgress = Float(self.currentSeconds) / Float(self.secondsForMediumCook)
             progressBar.progress = percantageProgress
         } else {
             timer.invalidate()
-            questionLabel.text = "Готово :D"
+            questionLabel.textAlignment = .center
+            self.questionLabel.font = .boldSystemFont(ofSize: 35)
+            questionLabel.text = "Ваше блюдо готово. Приятного аппетита!"
+            playSound("alarm_sound")
         }
     }
     
     @objc private func updateHardTimer() {
         if  self.currentSeconds < self.secondsForHardCook {
+            questionLabel.textAlignment = .justified
+            self.questionLabel.text = "ВКРУТУЮ. Твёрдый желток и белок. Варятся яйца 8–10 минут, в зависимости от размера, если кладутся в холодную воду. В кипящую воду опускаются яйца и варятся 10–12 минут. "
+            self.questionLabel.font = .boldSystemFont(ofSize: 18)
             self.currentSeconds += 1
             let percantageProgress = Float(self.currentSeconds) / Float(self.secondsForHardCook)
             progressBar.progress = percantageProgress
         } else {
             timer.invalidate()
-            questionLabel.text = "Готово :D"
+            questionLabel.textAlignment = .center
+            self.questionLabel.font = .boldSystemFont(ofSize: 35)
+            questionLabel.text = "Ваше блюдо готово. Приятного аппетита!"
+            playSound("alarm_sound")
         }
     }
+    
+    private func playSound(_ sound: String) {
+        if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            }
+        } else {
+            print("Файл не найден")
+        }
+    }
+    
 }

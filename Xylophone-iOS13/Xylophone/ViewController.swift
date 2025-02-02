@@ -406,7 +406,7 @@ class ViewController: UIViewController {
         
     }
     
-    func playSound(sound: String) {
+    private func playSound(sound: String) {
         if let path = Bundle.main.path(forResource: sound, ofType: "wav") {
             let url = URL(fileURLWithPath: path)
             
