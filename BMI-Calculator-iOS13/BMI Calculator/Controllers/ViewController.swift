@@ -6,8 +6,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         setupView()
         setupConstraints()
     }
@@ -22,10 +24,10 @@ class ViewController: UIViewController {
     private lazy var mainLabel: UILabel = {
         let mainLabel = UILabel()
         mainLabel.text = "CALCULATE YOUR BMI"
-        mainLabel.textColor = .darkGray
+        mainLabel.textColor = .systemIndigo
         mainLabel.font = UIFont(name: "Helvetica-Bold", size: 40)
         mainLabel.numberOfLines = 0
-        mainLabel.textAlignment = .left
+        mainLabel.textAlignment = .right
         mainLabel.backgroundColor = .clear
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         return mainLabel
@@ -57,7 +59,7 @@ class ViewController: UIViewController {
     
     private lazy var countHeightLabel: UILabel = {
         let countHeightLabel = UILabel()
-        countHeightLabel.text = "\(heightSlider.value) m"
+        countHeightLabel.text = "0.00 m"
         countHeightLabel.textColor = .darkGray
         countHeightLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         countHeightLabel.numberOfLines = 0
@@ -69,7 +71,7 @@ class ViewController: UIViewController {
     
     private lazy var countWeightLabel: UILabel = {
         let countWeightLabel = UILabel()
-        countWeightLabel.text = "\(weightSlider.value) kg"
+        countWeightLabel.text = "0.0 kg"
         countWeightLabel.textColor = .darkGray
         countWeightLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         countWeightLabel.numberOfLines = 0
@@ -79,11 +81,23 @@ class ViewController: UIViewController {
         return countWeightLabel
     }()
     
+    private lazy var calculateButton: UIButton = {
+        let calculateButton  = UIButton()
+        calculateButton.setTitle("CALCULATE", for: .normal)
+        calculateButton.setTitleColor(.white, for: .normal)
+        calculateButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20)
+        calculateButton.backgroundColor = .systemIndigo
+        calculateButton.layer.cornerRadius = 20
+        calculateButton.addTarget(self, action: #selector(calculateButtonPushed), for: .touchUpInside)
+        calculateButton.translatesAutoresizingMaskIntoConstraints = false
+        return calculateButton
+    }()
+    
     private lazy var heightSlider: UISlider = {
         let heightSlider = UISlider()
-        heightSlider.minimumValue = 0.00
-        heightSlider.value = 1.50
-        heightSlider.maximumValue = 3.00
+        heightSlider.minimumValue = 0
+        heightSlider.value = 0
+        heightSlider.maximumValue = 3
         heightSlider.maximumTrackTintColor = .darkGray
         heightSlider.minimumTrackTintColor = .systemPurple
         heightSlider.addTarget(self, action: #selector(heightSliderChanged), for: .valueChanged)
@@ -93,16 +107,16 @@ class ViewController: UIViewController {
     
     private lazy var weightSlider: UISlider = {
         let weightSlider = UISlider()
-        weightSlider.minimumValue = 0.0
-        weightSlider.value = 100.0
-        weightSlider.maximumValue = 200.0
+        weightSlider.minimumValue = 0
+        weightSlider.value = 0
+        weightSlider.maximumValue = 200
         weightSlider.maximumTrackTintColor = .darkGray
         weightSlider.minimumTrackTintColor = .systemIndigo
         weightSlider.addTarget(self, action: #selector(weightSliderChanged), for: .valueChanged)
         weightSlider.translatesAutoresizingMaskIntoConstraints = false
         return weightSlider
     }()
-
+    
     private func setupView() {
         view.addSubview(backImage)
         view.addSubview(mainLabel)
@@ -110,11 +124,9 @@ class ViewController: UIViewController {
         view.addSubview(weightLabel)
         view.addSubview(countHeightLabel)
         view.addSubview(countWeightLabel)
+        view.addSubview(calculateButton)
         view.addSubview(heightSlider)
         view.addSubview(weightSlider)
-        
-        print(heightSlider.value)
-        print(weightSlider.value)
     }
     
     private func setupConstraints() {
@@ -158,9 +170,14 @@ class ViewController: UIViewController {
             countWeightLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             countWeightLabel.heightAnchor.constraint(equalToConstant: 20),
             countWeightLabel.widthAnchor.constraint(equalToConstant: 70),
+            
+            calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            calculateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -325),
+            calculateButton.heightAnchor.constraint(equalToConstant: 50),
+            calculateButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
-
+    
     @objc private func heightSliderChanged() {
         let height = String(format: "%.2f", heightSlider.value)
         countHeightLabel.text = "\(height) m"
@@ -169,6 +186,24 @@ class ViewController: UIViewController {
     @objc private func weightSliderChanged() {
         let weight = String(format: "%.1f", weightSlider.value)
         countWeightLabel.text = "\(weight) kg"
+    }
+    
+    @objc private func calculateButtonPushed() {
+        let bmi = weightSlider.value / (pow(heightSlider.value, 2))
+        
+        let controller = SecondViewController()
+        self.present(controller, animated: true)
+        controller.calculateLabel.text = String(format: "%.1f", bmi)
+        
+        if bmi > 0 && bmi < 18.9 || bmi >= 29.9 {
+            controller.view.backgroundColor = .systemPink
+            controller.adviceLabel.text = "The BMI index is not normal. You should watch your diet."
+        } else if bmi >= 18.9 && bmi < 29.9 {
+            controller.view.backgroundColor = .systemGreen
+            controller.adviceLabel.text = "The BMI index is normal."
+        } else {
+            controller.view.backgroundColor = .white
+        }
     }
     
 }
