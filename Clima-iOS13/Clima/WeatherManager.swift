@@ -11,6 +11,7 @@
 // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}&units=metric
 
 import Foundation
+import CoreLocation
 
 protocol WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel)
@@ -24,6 +25,11 @@ struct WeatherManager {
     
     func fetchWeathe(cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName)"
+        performRequest(with: urlString)
+    }
+    
+    func fetchWeathe(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
         performRequest(with: urlString)
     }
     
@@ -42,7 +48,6 @@ struct WeatherManager {
                 
                 if let safeData = data {
                     if let weather = self.parseJSON(safeData) {
-                        let weatherVC = WeatherViewController()
                         self.delegate?.didUpdateWeather(self, weather: weather)
                     }
                 }
