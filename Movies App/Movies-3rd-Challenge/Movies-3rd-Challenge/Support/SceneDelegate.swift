@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let auth = true
         
-        window?.rootViewController = UINavigationController(rootViewController: auth ? OnboardingViewController() : TempLoginViewController())
+        window?.rootViewController = UINavigationController(rootViewController: auth ? ButtonToCallFilterVC() : OnboardingViewController())
         
         window?.makeKeyAndVisible()
     }

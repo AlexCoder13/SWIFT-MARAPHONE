@@ -1,10 +1,10 @@
-////
-////  SearchViewController.swift
-////  Movies-3rd-Challenge
-////
-////  Created by Валентин Картошкин on 01.04.2025.
-////
 //
+//  SearchViewController.swift
+//  Movies-3rd-Challenge
+//
+//  Created by Валентин Картошкин on 01.04.2025.
+//
+
 import UIKit
 import Alamofire
 
@@ -17,7 +17,7 @@ final class SearchViewController: UIViewController {
     private var isLoading = false
     private var currentPage = 1
     private let limit = 10
-//    private let apiKey = Constants.apiKey
+    private let apiKey = Constants.apiKey
     
     // MARK: - UI Components
     private lazy var searchBar: UISearchBar = {

@@ -7,9 +7,12 @@
 
 import UIKit
 
+/// Основное представление для экрана онбординга
 final class OnboardingView: UIView {
     
     // MARK: - Init
+    
+    /// Инициализатор с фреймом
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -22,6 +25,8 @@ final class OnboardingView: UIView {
     }
     
     // MARK: - Properties
+    
+    /// Фоновое изображение для экрана онбординга
     private lazy var onboardingBGImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "back1"))
         imageView.contentMode = .scaleAspectFit
@@ -31,12 +36,15 @@ final class OnboardingView: UIView {
     }()
     
     // MARK: - Methods
+    
+    /// Настройка элементов пользовательского интерфейса
     private func setupUI() {
         backgroundColor = .onboardingBG
         
         addSubview(onboardingBGImageView)
     }
     
+    /// Настройка ограничений для элементов интерфейса
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             onboardingBGImageView.heightAnchor.constraint(equalToConstant: 255),
