@@ -242,13 +242,6 @@ class FilterView: UIView {
             let defaultRatingIndex = IndexPath(item: indexOfRating, section: 0)
             ratingCollectionView.selectItem(at: defaultRatingIndex, animated: false, scrollPosition: .top)
         }
-        
-//        var indexOfRating: Int?
-//        if let selRating = selectedRating {
-//            indexOfRating = ratings.firstIndex(of: selRating)
-//        }
-
-        //SearchViewController.selectedGenre
    }
     
     // Настройка обработчиков действий
