@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let auth = UserDefaults.standard.bool(forKey: "isAuth")
-//        let auth = true
+//        let auth = UserDefaults.standard.bool(forKey: "isAuth")
+        let auth = true
         
         if let theme = UserDefaults.standard.string(forKey: "AppTheme") {
             switch theme {
@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 window?.overrideUserInterfaceStyle = .unspecified
             }
         }
-        window?.rootViewController = UINavigationController(rootViewController: auth ? SearchViewController() : TabBarController())
+        window?.rootViewController = UINavigationController(rootViewController: auth ? TabBarController() : LoginVC() )
         window?.makeKeyAndVisible()
         
     }
