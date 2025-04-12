@@ -21,9 +21,9 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3AB1349B2DA9BDE100F10B13 /* Movies-3rd-Challenge 7 */ = {
+		3AB136682DAB1A8900F10B13 /* Movies-3rd-Challenge 8 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Movies-3rd-Challenge 7";
+			path = "Movies-3rd-Challenge 8";
 			sourceTree = "<group>";
 		};
 		6BB614B02D96D8B4001A86B8 /* Movies-3rd-Challenge */ = {
@@ -52,7 +52,7 @@
 			children = (
 				6BB614B02D96D8B4001A86B8 /* Movies-3rd-Challenge */,
 				6BB614AF2D96D8B4001A86B8 /* Products */,
-				3AB1349B2DA9BDE100F10B13 /* Movies-3rd-Challenge 7 */,
+				3AB136682DAB1A8900F10B13 /* Movies-3rd-Challenge 8 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,7 +80,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				3AB1349B2DA9BDE100F10B13 /* Movies-3rd-Challenge 7 */,
+				3AB136682DAB1A8900F10B13 /* Movies-3rd-Challenge 8 */,
 				6BB614B02D96D8B4001A86B8 /* Movies-3rd-Challenge */,
 			);
 			name = "Movies-3rd-Challenge";
